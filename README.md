@@ -1,0 +1,2 @@
+Blackjack for iOS
+Blackjack! :)
