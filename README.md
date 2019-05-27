@@ -1,2 +1,2 @@
-# blackjack-ios
-The game of Blackjack for ios. Originally was created with Java for CLI
+# Blackjack for iOS
+A simple Blackjack game for ios. Originally implemented in Java.
