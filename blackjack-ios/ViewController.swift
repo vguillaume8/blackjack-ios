@@ -8,49 +8,42 @@
 
 import UIKit
 
-
-class ViewController: UIViewController {
-    
+class ViewController: UIViewController {  
     @IBOutlet weak var leftImageView: UIImageView!
-    
     @IBOutlet weak var rightImageView: UIImageView!
-    
     @IBOutlet weak var leftScoreLabel: UILabel!
-    
     @IBOutlet weak var rightScoreLabel: UILabel!
-    
-   
     
     var leftScore = 0
     var rightScore = 0
     var aceValue = 0
     let computerLimit = 18
     
+    var userIsWining: Bool {
+        if rightScoreLabel.text! < leftScoreLabel.text! {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
-
     @IBAction func dealTapped(_ sender: Any) {
-      
-        
-        if Int(rightScoreLabel.text!)! < computerLimit {
-            
+        if Int(rightScoreLabel.text!)! < computerLimit || userIsWining {
             drawCard(player: true)
             drawCard(player: false)
-        } else {
-            
+        } else {          
             drawCard(player: true)
         }
-        
+
         checkScore()
-        
     }
-    
-    
+      
     @IBAction func userStop(_ sender: Any) {
-        
         // checks if the computer can still play
         if rightScore < computerLimit {
             while rightScore < computerLimit && rightScore < leftScore {
@@ -77,7 +70,7 @@ class ViewController: UIViewController {
     }
     
     func convertCard(cardNumber: Int, player: Bool) -> Int {
-        
+
         if cardNumber == 14  {
             
             if player == true {
@@ -93,10 +86,14 @@ class ViewController: UIViewController {
                     return 11
                 }
             }
+
          
         }else if cardNumber > 10 {
             return 10
             
+
+        } else if cardNumber > 10 {
+            return 10
         }
             
         else {
@@ -104,8 +101,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func drawCard(player: Bool) {
-    
+    func drawCard(player: Bool) {    
         if player {
             let leftNumber = Int.random(in: 2...14)
             leftImageView.image = UIImage(named: "card\(leftNumber)")
@@ -138,15 +134,14 @@ class ViewController: UIViewController {
     }
     
     func gameOver(player: Bool) {
-        
         let alert = UIAlertController()
+        
         if player == true {
             alert.title = "Sorry, You Lost! \(leftScore) - \(rightScore)"
             alert.message = "Better Luck Next Time!"
-                    } else {
+        } else {
             alert.title = "Congrats You Won! \(leftScore) - \(rightScore)"
-            alert.message = "Nice Job!"
-           
+            alert.message = "Nice Job!" 
         }
         
         alert.addAction(UIAlertAction(title: "Play Again?", style: .default, handler: { action in
@@ -191,4 +186,3 @@ class ViewController: UIViewController {
         rightScoreLabel.text = "0"
     }
 }
-
