@@ -44,22 +44,7 @@ class ViewController: UIViewController {
             drawCard(player: true)
         }
         
-        if leftScore == 21 {
-            gameOver(player: false)
-        }
-        
-        if(rightScore == 21) {
-            gameOver(player: true)
-        }
-       
-        if leftScore > 21 {
-            gameOver(player: true)
-        }
-        
-        if rightScore > 21 {
-            gameOver(player: false)
-        }
-  
+        checkScore()
         
     }
     
@@ -93,7 +78,6 @@ class ViewController: UIViewController {
     
     func convertCard(cardNumber: Int, player: Bool) -> Int {
         
-        
         if cardNumber == 14  {
             
             if player == true {
@@ -110,7 +94,6 @@ class ViewController: UIViewController {
                 }
             }
          
-        
         }else if cardNumber > 10 {
             return 10
             
@@ -142,15 +125,16 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "11", style: .default, handler: { action in
             self.leftScore = self.leftScore + 11
             self.leftScoreLabel.text = String(self.leftScore)
+            self.checkScore()
         }))
         
         alert.addAction(UIAlertAction(title: "1", style: .default, handler: { action in
             self.leftScore = self.leftScore + 1
             self.leftScoreLabel.text = String(self.leftScore)
+            self.checkScore()
         }))
         
         self.present(alert, animated: true)
-        
     }
     
     func gameOver(player: Bool) {
@@ -170,7 +154,6 @@ class ViewController: UIViewController {
         }))
         
          self.present(alert, animated: true)
-        
     }
     
     func drawGame() {
@@ -183,15 +166,29 @@ class ViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
+    func checkScore() {
+        if leftScore == 21 {
+            gameOver(player: false)
+        }
+        
+        if(rightScore == 21) {
+            gameOver(player: true)
+        }
+        
+        if leftScore > 21 {
+            gameOver(player: true)
+        }
+        
+        if rightScore > 21 {
+            gameOver(player: false)
+        }
+    }
+    
     func restart() {
         leftScore = 0
         rightScore = 0
         leftScoreLabel.text = "0"
         rightScoreLabel.text = "0"
     }
-    
-    
-    
-
 }
 
